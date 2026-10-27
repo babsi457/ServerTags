@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "servertags",
+  "version": "${version}",
+  "name": "ServerTags",
+  "description": "Selbst wählbare Tags und OP-Auszeichnungen mit Minecraft-Item-Icons.",
+  "authors": ["Basky"],
+  "license": "MIT",
+  "environment": "server",
+  "entrypoints": {"main": ["de.basky.servertags.ServerTags"]},
+  "mixins": ["servertags.mixins.json"],
+  "depends": {"fabricloader": ">=${loader_version}", "minecraft": "26.3", "java": ">=25", "fabric-api": ">=${fabric_api_version}"},
+  "suggests": {"tab": "6.2.1"}
+}

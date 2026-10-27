@@ -20,7 +20,7 @@ Version 1.2.0 braucht:
 
 1. Server stoppen.
 2. Fabric API und die Fabric-Version von [TAB](https://modrinth.com/plugin/tab-was-taken/version/HlsRTW5F) installieren, falls sie noch fehlen.
-3. [servertags-1.2.0.jar](dist/servertags-1.2.0.jar) in `mods/` kopieren.
+3. `servertags-1.2.0.jar` in `mods/` kopieren.
 4. Server starten und im Spiel `/tag` eingeben.
 
 Beim ersten Start wird `config/servertags/` angelegt. Mitgeliefert sind Builder, Redstone, Farmer, Miner und Explorer. Bei einem Update bleiben deine eigenen Tags und Spielerdaten erhalten.
@@ -93,13 +93,13 @@ Das Pack enthält 32 Item-Icons. Alle IDs stehen in der [Icon-Liste](docs/ICONS.
 
 ## Resourcepack einrichten
 
-Lade [ServerTags-ResourcePack.zip](dist/ServerTags-ResourcePack.zip) auf deinen Webserver oder einen Datei-Host hoch. Der Link muss die ZIP-Datei direkt und ohne Anmeldung herunterladen. ServerTags hostet das Pack nicht selbst.
+Lade `ServerTags-ResourcePack.zip` auf deinen Webserver oder einen Datei-Host hoch. Die Datei wird mit `gradlew.bat resourcePack` erzeugt. Der Link muss die ZIP-Datei direkt und ohne Anmeldung herunterladen. ServerTags hostet das Pack nicht selbst.
 
-Trage bei gestopptem Server diese Werte in `server.properties` ein. Ersetze die Platzhalter für URL und Hash. Den Hash findest du in [ServerTags-ResourcePack.zip.sha1](dist/ServerTags-ResourcePack.zip.sha1). Es gibt auch eine [Vorlage mit dem aktuellen Hash](dist/server-resourcepack.properties.example).
+Trage bei gestopptem Server diese Werte in `server.properties` ein. Ersetze die Platzhalter für URL und Hash. Den Hash findest du nach dem Build in `dist/ServerTags-ResourcePack.zip.sha1`. Im selben Ordner liegt die Vorlage `server-resourcepack.properties.example`.
 
 ```properties
-resource-pack=https\://download.mc-packs.net/pack/3ff27ee083680f008075119098aa191ab1fd52f5.zip
-resource-pack-sha1=3ff27ee083680f008075119098aa191ab1fd52f5
+resource-pack=DEINE_DIREKTE_ZIP_URL
+resource-pack-sha1=HASH_AUS_DER_SHA1_DATEI
 resource-pack-id=9ec9cb9a-a0a0-4e8e-a3bd-c97c81640bac
 require-resource-pack=false
 resource-pack-prompt={"text":"Item-Icons für ServerTags laden"}
@@ -173,8 +173,8 @@ Du brauchst ein Java-25-JDK. Im Projektordner:
 .\gradlew.bat build resourcePack distribution
 ```
 
-Die fertigen Dateien landen in `dist/`. Alternativ gibt es `tools/Build.ps1`.
+Die fertigen Dateien landen in `dist/`. Alternativ gibt es `tools/Build.ps1`. Unter Linux oder macOS den Wrapper mit `sh ./gradlew build resourcePack distribution` aufrufen.
 
-Tests startest du mit `gradlew.bat test`. Für den lokalen Servertest gibt es `tools/Test-Server.ps1 -AcceptMinecraftEula`. Das Skript nutzt eine eigene Testwelt und beendet den Server anschließend selbst. Die Test-Harness-JAR gehört deshalb nicht auf deinen Spielserver. Ergebnisse und offene Prüfungen stehen im [Testbericht](docs/TESTBERICHT.md).
+Tests startest du mit `gradlew.bat test`. Für den lokalen Servertest gibt es `tools/Test-Server.ps1 -AcceptMinecraftEula`. Das Skript nutzt eine eigene Testwelt und beendet den Server anschließend selbst. Die Test-Harness-JAR gehört deshalb nicht auf deinen Spielserver. Ergebnisse und offene Prüfungen stehen im [Testanleitung](docs/TESTING.md).
 
-Der Code steht unter der [MIT-Lizenz](LICENSE). Minecraft-Texturen unterliegen den Rechten von Mojang/Microsoft. ServerTags ist kein offizielles Minecraft-Produkt.
+Der Code steht unter der [MIT-Lizenz](LICENSE). Die Herkunft der Grafiken und Drittbestandteile steht unter [Assets](docs/ASSETS.md). ServerTags ist kein offizielles Minecraft-Produkt.

@@ -1,0 +1,83 @@
+plugins {
+    id 'net.fabricmc.fabric-loom' version "${loom_version}"
+}
+repositories {
+    mavenCentral()
+    maven {
+        url = 'https://api.modrinth.com/maven'
+        content {
+            includeGroup 'maven.modrinth'
+        }
+    }
+}
+dependencies {
+    minecraft "com.mojang:minecraft:${minecraft_version}"
+    implementation "net.fabricmc:fabric-loader:${loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
+    compileOnly 'maven.modrinth:tab-was-taken:HlsRTW5F'
+    testImplementation 'maven.modrinth:tab-was-taken:HlsRTW5F'
+    testImplementation platform('org.junit:junit-bom:5.14.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+processResources {
+    inputs.property 'version', project.version
+    inputs.property 'loader_version', project.loader_version
+    inputs.property 'fabric_api_version', project.fabric_api_version
+    filesMatching('fabric.mod.json') {
+        expand version: project.version,
+                loader_version: project.loader_version,
+                fabric_api_version: project.fabric_api_version
+    }
+}
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+    withSourcesJar()
+}
+tasks.withType(JavaCompile).configureEach {
+    options.release = 25
+    options.encoding = 'UTF-8'
+}
+test {
+    useJUnitPlatform()
+    def clientJar = new File(
+            gradle.gradleUserHomeDir,
+            "caches/fabric-loom/${minecraft_version}/minecraft-client.jar")
+    systemProperty 'servertags.minecraftClientJar', clientJar.absolutePath
+    jvmArgs '--enable-native-access=ALL-UNNAMED'
+}
+sourceSets {
+    serverTest {
+        compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
+        runtimeClasspath += sourceSets.main.output + sourceSets.main.runtimeClasspath
+    }
+}
+configurations {
+    serverTestImplementation.extendsFrom implementation
+    serverTestCompileOnly.extendsFrom compileOnly
+}
+tasks.named('processServerTestResources') {
+    inputs.property 'version', project.version
+    filesMatching('fabric.mod.json') { expand version: project.version }
+}
+tasks.register('serverTestJar', Jar) {
+    dependsOn serverTestClasses
+    archiveBaseName = 'servertags-test-harness'
+    from sourceSets.serverTest.output
+}
+jar {
+    from('LICENSE')
+}
+tasks.register('resourcePack', JavaExec) {
+    dependsOn classes
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'de.basky.servertags.pack.ResourcePackGenerator'
+    args layout.projectDirectory.file('examples/icons.json').asFile.absolutePath,
+         layout.projectDirectory.file('dist/ServerTags-ResourcePack.zip').asFile.absolutePath
+}
+tasks.register('distribution', Copy) {
+    dependsOn build, resourcePack
+    from(tasks.jar)
+    into layout.projectDirectory.dir('dist')
+}

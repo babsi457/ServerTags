@@ -1,0 +1,7 @@
+{
+  "builder": {"text": "Builder", "color": "aqua", "bold": false, "italic": false},
+  "redstone": {"text": "Redstone", "color": "red", "bold": false, "italic": false},
+  "farmer": {"text": "Farmer", "color": "green", "bold": false, "italic": false},
+  "miner": {"text": "Miner", "color": "gold", "bold": false, "italic": false},
+  "explorer": {"text": "Explorer", "color": "light_purple", "bold": false, "italic": false}
+}

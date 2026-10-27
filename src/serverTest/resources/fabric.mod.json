@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "id": "servertags_test",
+  "version": "${version}",
+  "name": "ServerTags server integration tests (DO NOT INSTALL)",
+  "environment": "server",
+  "entrypoints": {"main": ["de.basky.servertags.test.ServerIntegrationTests"]},
+  "depends": {"servertags": "*", "tab": "6.2.1"}
+}
