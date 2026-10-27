@@ -98,8 +98,8 @@ Lade [ServerTags-ResourcePack.zip](dist/ServerTags-ResourcePack.zip) auf deinen 
 Trage bei gestopptem Server diese Werte in `server.properties` ein. Ersetze die Platzhalter für URL und Hash. Den Hash findest du in [ServerTags-ResourcePack.zip.sha1](dist/ServerTags-ResourcePack.zip.sha1). Es gibt auch eine [Vorlage mit dem aktuellen Hash](dist/server-resourcepack.properties.example).
 
 ```properties
-resource-pack=DEINE_DIREKTE_ZIP_URL
-resource-pack-sha1=HASH_AUS_DER_SHA1_DATEI
+resource-pack=https\://download.mc-packs.net/pack/3ff27ee083680f008075119098aa191ab1fd52f5.zip
+resource-pack-sha1=3ff27ee083680f008075119098aa191ab1fd52f5
 resource-pack-id=9ec9cb9a-a0a0-4e8e-a3bd-c97c81640bac
 require-resource-pack=false
 resource-pack-prompt={"text":"Item-Icons für ServerTags laden"}
